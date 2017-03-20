@@ -42,7 +42,7 @@ public final class QuoteSyncJob {
     private QuoteSyncJob() {
     }
 
-    static void getQuotes(Context context) throws QuoteUnavailableException {
+    static void getQuotes(Context context)  {
 
         Timber.d("Running sync job");
 
