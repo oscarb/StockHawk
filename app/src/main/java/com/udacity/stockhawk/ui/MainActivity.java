@@ -16,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -131,12 +130,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
 
-            try {
-                PrefUtils.addStock(this, symbol);
-                QuoteSyncJob.syncImmediately(this);
-            } catch (Exception exception) {
-                Log.d("TAG", "No quote");
-            }
+            PrefUtils.addStock(this, symbol);
+            QuoteSyncJob.syncImmediately(this);
+
         }
     }
 
