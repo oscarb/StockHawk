@@ -1,6 +1,9 @@
 package com.udacity.stockhawk.ui;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -13,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @BindView(R.id.error)
     TextView error;
     private StockAdapter adapter;
+    private BroadcastReceiver broadcastReceiver;
 
     @Override
     public void onClick(String symbol) {
@@ -126,8 +131,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
 
-            PrefUtils.addStock(this, symbol);
-            QuoteSyncJob.syncImmediately(this);
+            try {
+                PrefUtils.addStock(this, symbol);
+                QuoteSyncJob.syncImmediately(this);
+            } catch (Exception exception) {
+                Log.d("TAG", "No quote");
+            }
         }
     }
 
@@ -149,6 +158,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         adapter.setCursor(data);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter receiverFilter = new IntentFilter(QuoteSyncJob.ACTION_QUOTE_NOT_FOUND);
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String symbol = intent.getStringExtra(QuoteSyncJob.EXTRA_SYNBOL);
+                Toast.makeText(context, "Could not find stock " + symbol, Toast.LENGTH_SHORT).show();
+            }
+        };
+        registerReceiver(broadcastReceiver, receiverFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
+    }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
@@ -186,4 +214,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

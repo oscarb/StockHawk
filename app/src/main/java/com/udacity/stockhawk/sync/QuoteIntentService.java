@@ -15,6 +15,10 @@ public class QuoteIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Timber.d("Intent handled");
-        QuoteSyncJob.getQuotes(getApplicationContext());
+        try {
+            QuoteSyncJob.getQuotes(getApplicationContext());
+        } catch (QuoteUnavailableException e) {
+
+        }
     }
 }
