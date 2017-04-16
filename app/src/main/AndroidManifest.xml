@@ -49,9 +49,12 @@
                 android:resource="@xml/detail_widget_info" />
         </receiver>
 
-        <service android:name=".DetailWidgetRemoteViewsService"
+        <service
+            android:name=".DetailWidgetRemoteViewsService"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity android:name=".ui.DetailActivity"></activity>
     </application>
 
 </manifest>
