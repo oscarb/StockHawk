@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.udacity.stockhawk.ui.DetailActivity">
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </android.support.constraint.ConstraintLayout>

@@ -40,4 +40,7 @@
     <string name="add_stock">Add stock</string>
     <string name="add_widget">Add widget</string>
 
+    <!-- Description shown in chart (if enabled in chart_settings.xml) -->
+    <string name="chart_description_text">Data from Yahoo Finances</string>
+
 </resources>

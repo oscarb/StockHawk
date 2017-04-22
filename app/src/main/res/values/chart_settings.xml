@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="axis_left">false</bool>
+    <bool name="axis_right">true</bool>
+
+    <!-- Chart -->
+    <string name="no_data_text">No data!</string>
+    <color name="no_data_text_color">@color/colorAccent</color>
+    <bool name="pinch_zoom">true</bool>
+    <bool name="double_tap_to_zoom">true</bool>
+    <bool name="auto_scale_min_max">false</bool>
+    <bool name="legend">false</bool>
+    <bool name="description">false</bool>
+    <string name="description_text">@string/chart_description_text</string>
+    
+    <!-- DataSet -->
+    <color name="line_color">@color/material_blue_500</color>
+    <color name="line_text_color">@android:color/white</color>
+    <dimen name="line_text_size">10dp</dimen>
+    <bool name="line_draw_circles">false</bool>
+    <bool name="line_draw_filled">true</bool>
+    <bool name="keep_position_on_rotation">true</bool>
+
+    <!-- X Axis -->
+    <bool name="axis_x">true</bool>
+    <bool name="axis_x_granularity_enabled">false</bool>
+    <integer name="axis_x_granularity">86370</integer>
+    <bool name="axis_x_avoid_first_last_clipping">false</bool>
+    <integer name="axis_x_label_count">3</integer>
+    <bool name="axis_x_draw_labels">true</bool>
+    <color name="axis_x_text_color">@android:color/white</color>
+    <dimen name="axis_x_text_size">12dp</dimen>
+
+    <!-- Y Axis -->
+    <color name="axis_y_text_color">@android:color/white</color>
+    <dimen name="axis_y_text_size">12dp</dimen>
+</resources>
