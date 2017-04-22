@@ -3,18 +3,19 @@ package com.udacity.stockhawk.ui;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
+import android.view.MotionEvent;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.ChartTouchListener;
+import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.udacity.stockhawk.R;
 
@@ -47,7 +48,6 @@ public class ChartUtils {
         chart.setAutoScaleMinMaxEnabled(res.getBoolean(R.bool.auto_scale_min_max));
         chart.setKeepPositionOnRotation(res.getBoolean(R.bool.keep_position_on_rotation));
         chart.getLegend().setEnabled(res.getBoolean(R.bool.legend));
-
         chart.setViewPortOffsets(getSizeInDp(R.dimen.viewport_offset_left, res),
                 getSizeInDp(R.dimen.viewport_offset_top, res),
                 getSizeInDp(R.dimen.viewport_offset_right, res),
@@ -74,13 +74,14 @@ public class ChartUtils {
         xAxis.setGranularity(res.getInteger(R.integer.axis_x_granularity));
         xAxis.setGranularityEnabled(res.getBoolean(R.bool.axis_x_granularity_enabled));
         xAxis.setAvoidFirstLastClipping(res.getBoolean(R.bool.axis_x_avoid_first_last_clipping));
-        //xAxis.setLabelCount(res.getInteger(R.integer.axis_x_label_count));
+        xAxis.setLabelCount(res.getInteger(R.integer.axis_x_label_count));
         xAxis.setDrawLabels(res.getBoolean(R.bool.axis_x_draw_labels));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         xAxis.setTextColor(ContextCompat.getColor(context, R.color.axis_x_text_color));
         xAxis.setTextSize(getSizeInDp(R.dimen.axis_x_text_size, res));
-        //xAxis.setValueFormatter(new EmptyXAxisFormatter());
-        xAxis.setDrawGridLines(true);
+        xAxis.setDrawGridLines(res.getBoolean(R.bool.draw_grid_lines));
+
+        // Marker
         DateAndQuoteMarkerView markerView = new DateAndQuoteMarkerView (context, R.layout.chart_marker_view);
         markerView.setChartView(chart);
         chart.setMarker(markerView);
@@ -91,7 +92,6 @@ public class ChartUtils {
     }
 
     private static class DateAndQuoteMarkerView extends MarkerView {
-
         TextView markerText;
 
         public DateAndQuoteMarkerView(Context context, int layoutResource) {
@@ -117,31 +117,45 @@ public class ChartUtils {
 
             return new MPPointF(-posX - getWidth()/2 + getChartView().getWidth()/2, -posY + offsetFromTop);
         }
-
     }
 
+    public static class UpdateTimePeriodOnChartGestureListener implements OnChartGestureListener {
+        TimePeriodUpdater timePeriodUpdater;
 
-    private static class DateXAxisFormatter implements IAxisValueFormatter {
+        public UpdateTimePeriodOnChartGestureListener(TimePeriodUpdater timePeriodUpdater) {
+            this.timePeriodUpdater = timePeriodUpdater;
+        }
 
-        private LineChart chart;
-
-        public DateXAxisFormatter(LineChart chart) {
-            this.chart = chart;
+        public interface TimePeriodUpdater {
+            void updateTimePeriod();
         }
 
         @Override
-        public String getFormattedValue(float value, AxisBase axis) {
-            Date date = new Date((long) value * 1000);
-            return DateFormat.getDateInstance().format(date);
-        }
-    }
-
-    private static class EmptyXAxisFormatter implements IAxisValueFormatter {
+        public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {}
 
         @Override
-        public String getFormattedValue(float value, AxisBase axis) {
-            return "";
+        public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {}
+
+        @Override
+        public void onChartLongPressed(MotionEvent me) {}
+
+        @Override
+        public void onChartDoubleTapped(MotionEvent me) {}
+
+        @Override
+        public void onChartSingleTapped(MotionEvent me) {}
+
+        @Override
+        public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {}
+
+        @Override
+        public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
+            timePeriodUpdater.updateTimePeriod();
+        }
+
+        @Override
+        public void onChartTranslate(MotionEvent me, float dX, float dY) {
+            timePeriodUpdater.updateTimePeriod();
         }
     }
-
 }

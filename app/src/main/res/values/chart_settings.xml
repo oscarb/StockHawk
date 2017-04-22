@@ -34,6 +34,7 @@
     <bool name="axis_x_draw_labels">false</bool>
     <color name="axis_x_text_color">@android:color/white</color>
     <dimen name="axis_x_text_size">12dp</dimen>
+    <bool name="draw_grid_lines">true</bool>
 
     <!-- Y Axis -->
     <color name="axis_y_text_color">@android:color/white</color>
