@@ -3,15 +3,17 @@
     android:layout_height="match_parent"
     android:padding="@dimen/widget_margin"
     android:orientation="vertical"
-    android:background="#424242">
+    android:background="@color/widgetBackground">
 
     <TextView
         android:id="@+id/widget_header"
         android:text="@string/app_name"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="48dp"
         android:background="@color/colorPrimary"
         android:textColor="@android:color/primary_text_dark"
+        android:textAppearance="@android:style/TextAppearance.Material.Title"
+        android:gravity="center_vertical"
         android:paddingLeft="20dp"/>
 
     <FrameLayout

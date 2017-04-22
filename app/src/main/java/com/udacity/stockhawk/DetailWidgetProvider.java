@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import com.udacity.stockhawk.sync.QuoteSyncJob;
+import com.udacity.stockhawk.ui.DetailActivity;
 import com.udacity.stockhawk.ui.MainActivity;
 
 /**
@@ -32,6 +33,11 @@ public class DetailWidgetProvider extends AppWidgetProvider {
         views.setRemoteAdapter(R.id.widget_list, new Intent(context, DetailWidgetRemoteViewsService.class));
 
         // TODO: Add pending intent for clicking each stock to open detailed view
+        Intent detailIntent = new Intent(context, DetailActivity.class);
+
+        PendingIntent pendingDetailIntent = PendingIntent.getActivity(context, 0, detailIntent, 0);
+        views.setPendingIntentTemplate(R.id.widget_list, pendingDetailIntent);
+
 
         views.setEmptyView(R.id.widget_list, R.id.widget_empty_state);
 

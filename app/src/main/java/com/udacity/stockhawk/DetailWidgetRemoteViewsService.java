@@ -92,7 +92,7 @@ public class DetailWidgetRemoteViewsService extends RemoteViewsService {
                 RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget_detail_list_item);
 
                 String symbol = data.getString(Contract.Quote.POSITION_SYMBOL);
-                float price = data.getInt(Contract.Quote.POSITION_PRICE);
+                String price = dollarFormat.format(data.getFloat(Contract.Quote.POSITION_PRICE));
                 float rawAbsoluteChange = data.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
                 float percentageChange = data.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
 
@@ -101,11 +101,11 @@ public class DetailWidgetRemoteViewsService extends RemoteViewsService {
 
                 views.setTextViewText(R.id.widget_symbol, symbol);
                 views.setTextViewText(R.id.widget_price, "" + price);
-                views.setTextViewText(R.id.widget_change, change);
 
-                // TODO: description
-
-                // TODO: Open detailed view
+                final Intent fillInIntent = new Intent();
+                Uri stockUri = Contract.Quote.makeUriForStock(symbol);
+                fillInIntent.setData(stockUri);
+                views.setOnClickFillInIntent(R.id.widget_list_item, fillInIntent);
 
                 return views;
             }
