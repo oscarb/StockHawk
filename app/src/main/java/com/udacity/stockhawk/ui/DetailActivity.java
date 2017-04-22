@@ -7,19 +7,25 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.listener.ChartTouchListener;
+import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.utils.EntryXComparator;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -35,6 +41,12 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     @BindView(R.id.chart)
     LineChart chart;
+
+    @BindView(R.id.time_period_start)
+    TextView timePeriodStart;
+
+    @BindView(R.id.time_period_end)
+    TextView timePeriodEnd;
 
     // Projection - desired columns to retrieve
     private static final String[] QUOTE_COLUMNS = {
@@ -125,12 +137,68 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
         LineDataSet dataSet = new LineDataSet(entries, "Label");
         ChartUtils.applyStyling(dataSet, loader.getContext());
+        chart.offsetLeftAndRight(0);
+        chart.offsetTopAndBottom(0);
+
 
 
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
-        chart.invalidate();
 
+        chart.setHighlightPerDragEnabled(true);
+
+        chart.invalidate();
+        updateTimePeriod();
+
+        chart.setOnChartGestureListener(new OnChartGestureListener() {
+            @Override
+            public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+
+            }
+
+            @Override
+            public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+
+            }
+
+            @Override
+            public void onChartLongPressed(MotionEvent me) {
+
+            }
+
+            @Override
+            public void onChartDoubleTapped(MotionEvent me) {
+
+            }
+
+            @Override
+            public void onChartSingleTapped(MotionEvent me) {
+
+            }
+
+            @Override
+            public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+
+            }
+
+            @Override
+            public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
+                updateTimePeriod();
+            }
+
+            @Override
+            public void onChartTranslate(MotionEvent me, float dX, float dY) {
+                updateTimePeriod();
+            }
+        });
+    }
+
+    private void updateTimePeriod() {
+        Date minDate = new Date((long) chart.getLowestVisibleX() * 1000);
+        Date maxDate = new Date((long) chart.getHighestVisibleX() * 1000);
+
+        timePeriodStart.setText(DateFormat.getDateInstance().format(minDate));
+        timePeriodEnd.setText(DateFormat.getDateInstance().format(maxDate));
     }
 
     @Override

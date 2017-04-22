@@ -6,12 +6,16 @@
     <!-- Chart -->
     <string name="no_data_text">No data!</string>
     <color name="no_data_text_color">@color/colorAccent</color>
-    <bool name="pinch_zoom">true</bool>
+    <bool name="pinch_zoom">false</bool>
     <bool name="double_tap_to_zoom">true</bool>
     <bool name="auto_scale_min_max">false</bool>
     <bool name="legend">false</bool>
     <bool name="description">false</bool>
     <string name="description_text">@string/chart_description_text</string>
+    <dimen name="viewport_offset_top">0dp</dimen>
+    <dimen name="viewport_offset_left">0dp</dimen>
+    <dimen name="viewport_offset_right">0dp</dimen>
+    <dimen name="viewport_offset_bottom">0dp</dimen>
     
     <!-- DataSet -->
     <color name="line_color">@color/material_blue_500</color>
@@ -23,15 +27,18 @@
 
     <!-- X Axis -->
     <bool name="axis_x">true</bool>
-    <bool name="axis_x_granularity_enabled">false</bool>
+    <bool name="axis_x_granularity_enabled">true</bool>
     <integer name="axis_x_granularity">86370</integer>
     <bool name="axis_x_avoid_first_last_clipping">false</bool>
-    <integer name="axis_x_label_count">3</integer>
-    <bool name="axis_x_draw_labels">true</bool>
+    <integer name="axis_x_label_count">1</integer>
+    <bool name="axis_x_draw_labels">false</bool>
     <color name="axis_x_text_color">@android:color/white</color>
     <dimen name="axis_x_text_size">12dp</dimen>
 
     <!-- Y Axis -->
     <color name="axis_y_text_color">@android:color/white</color>
     <dimen name="axis_y_text_size">12dp</dimen>
+
+    <!-- Marker -->
+    <dimen name="marker_offset_from_top">100dp</dimen>
 </resources>
