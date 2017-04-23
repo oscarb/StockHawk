@@ -6,8 +6,8 @@
     android:layout_height="48dp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingLeft="@dimen/list_item_padding"
+    android:paddingRight="@dimen/list_item_padding">
 
     <TextView
         android:id="@+id/widget_symbol"
@@ -28,7 +28,7 @@
             style="@style/WidgetBidPriceTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10sp"
+            android:layout_marginEnd="@dimen/list_price_margin_end"
             tools:text="1000.00" />
 
     </LinearLayout>

@@ -29,15 +29,12 @@ public class DetailWidgetProvider extends AppWidgetProvider {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         views.setOnClickPendingIntent(R.id.widget_header, pendingIntent);
 
-        // set up adapter to populate list view of stocks
+        // Set up adapter to populate list view of stocks
         views.setRemoteAdapter(R.id.widget_list, new Intent(context, DetailWidgetRemoteViewsService.class));
 
-        // TODO: Add pending intent for clicking each stock to open detailed view
         Intent detailIntent = new Intent(context, DetailActivity.class);
-
         PendingIntent pendingDetailIntent = PendingIntent.getActivity(context, 0, detailIntent, 0);
         views.setPendingIntentTemplate(R.id.widget_list, pendingDetailIntent);
-
 
         views.setEmptyView(R.id.widget_list, R.id.widget_empty_state);
 
@@ -49,7 +46,7 @@ public class DetailWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, @NonNull Intent intent) {
         super.onReceive(context, intent);
 
-        if(intent.getAction().equals(QuoteSyncJob.ACTION_DATA_UPDATED)) {
+        if (intent.getAction().equals(QuoteSyncJob.ACTION_DATA_UPDATED)) {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, getClass()));
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list);

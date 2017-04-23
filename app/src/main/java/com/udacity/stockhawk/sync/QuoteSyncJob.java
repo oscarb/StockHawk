@@ -30,10 +30,10 @@ import yahoofinance.quotes.stock.StockQuote;
 
 public final class QuoteSyncJob {
 
-    private static final int ONE_OFF_ID = 2;
     public static final String ACTION_DATA_UPDATED = "com.udacity.stockhawk.ACTION_DATA_UPDATED";
     public static final String ACTION_QUOTE_NOT_FOUND = "com.udacity.stockhawk.QUOTE_NOT_FOUND";
-    public static final String EXTRA_SYNBOL = "com.udacity.stockhawk.EXTRA_SYMBOL";
+    public static final String EXTRA_SYMBOL = "com.udacity.stockhawk.EXTRA_SYMBOL";
+    private static final int ONE_OFF_ID = 2;
     private static final int PERIOD = 300000;
     private static final int INITIAL_BACKOFF = 10000;
     private static final int PERIODIC_ID = 1;
@@ -42,7 +42,7 @@ public final class QuoteSyncJob {
     private QuoteSyncJob() {
     }
 
-    static void getQuotes(Context context)  {
+    static void getQuotes(Context context) {
 
         Timber.d("Running sync job");
 
@@ -107,7 +107,7 @@ public final class QuoteSyncJob {
 
                 } catch (NullPointerException e) {
                     Intent dataNotFoundIntent = new Intent(ACTION_QUOTE_NOT_FOUND);
-                    dataNotFoundIntent.putExtra(EXTRA_SYNBOL, symbol);
+                    dataNotFoundIntent.putExtra(EXTRA_SYMBOL, symbol);
                     context.sendBroadcast(dataNotFoundIntent);
 
                     PrefUtils.removeStock(context, symbol);

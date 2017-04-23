@@ -26,8 +26,8 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
     private final DecimalFormat dollarFormatWithPlus;
     private final DecimalFormat dollarFormat;
     private final DecimalFormat percentageFormat;
-    private Cursor cursor;
     private final StockAdapterOnClickHandler clickHandler;
+    private Cursor cursor;
 
     StockAdapter(Context context, StockAdapterOnClickHandler clickHandler) {
         this.context = context;

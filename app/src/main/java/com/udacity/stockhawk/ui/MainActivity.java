@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                String symbol = intent.getStringExtra(QuoteSyncJob.EXTRA_SYNBOL);
+                String symbol = intent.getStringExtra(QuoteSyncJob.EXTRA_SYMBOL);
                 Toast.makeText(context, "Could not find stock " + symbol, Toast.LENGTH_SHORT).show();
             }
         };

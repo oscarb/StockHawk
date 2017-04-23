@@ -10,22 +10,22 @@
         android:id="@+id/chart"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/time_period_start"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/time_period_start"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/time_period_start"
-        app:layout_constraintTop_toBottomOf="@id/chart"
-        app:layout_constraintStart_toStartOf="parent"
+        style="@style/TimePeriodTextStyle"
         app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/TimePeriodTextStyle" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chart" />
 
     <TextView
         android:id="@+id/time_period_end"
-        app:layout_constraintTop_toBottomOf="@id/chart"
-        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/TimePeriodTextStyle"
         app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/TimePeriodTextStyle" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chart" />
 </android.support.constraint.ConstraintLayout>

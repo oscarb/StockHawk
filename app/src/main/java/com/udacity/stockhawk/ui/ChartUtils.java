@@ -82,7 +82,7 @@ public class ChartUtils {
         xAxis.setDrawGridLines(res.getBoolean(R.bool.draw_grid_lines));
 
         // Marker
-        DateAndQuoteMarkerView markerView = new DateAndQuoteMarkerView (context, R.layout.chart_marker_view);
+        DateAndQuoteMarkerView markerView = new DateAndQuoteMarkerView(context, R.layout.chart_marker_view);
         markerView.setChartView(chart);
         chart.setMarker(markerView);
     }
@@ -115,7 +115,7 @@ public class ChartUtils {
                 offsetFromTop = getChartView().getHeight() - getHeight();
             }
 
-            return new MPPointF(-posX - getWidth()/2 + getChartView().getWidth()/2, -posY + offsetFromTop);
+            return new MPPointF(-posX - getWidth() / 2 + getChartView().getWidth() / 2, -posY + offsetFromTop);
         }
     }
 
@@ -126,27 +126,29 @@ public class ChartUtils {
             this.timePeriodUpdater = timePeriodUpdater;
         }
 
-        public interface TimePeriodUpdater {
-            void updateTimePeriod();
+        @Override
+        public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
         }
 
         @Override
-        public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {}
+        public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+        }
 
         @Override
-        public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {}
+        public void onChartLongPressed(MotionEvent me) {
+        }
 
         @Override
-        public void onChartLongPressed(MotionEvent me) {}
+        public void onChartDoubleTapped(MotionEvent me) {
+        }
 
         @Override
-        public void onChartDoubleTapped(MotionEvent me) {}
+        public void onChartSingleTapped(MotionEvent me) {
+        }
 
         @Override
-        public void onChartSingleTapped(MotionEvent me) {}
-
-        @Override
-        public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {}
+        public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+        }
 
         @Override
         public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
@@ -156,6 +158,10 @@ public class ChartUtils {
         @Override
         public void onChartTranslate(MotionEvent me, float dX, float dY) {
             timePeriodUpdater.updateTimePeriod();
+        }
+
+        public interface TimePeriodUpdater {
+            void updateTimePeriod();
         }
     }
 }

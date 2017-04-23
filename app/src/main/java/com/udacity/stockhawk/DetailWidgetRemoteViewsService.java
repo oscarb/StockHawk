@@ -18,8 +18,6 @@ import java.util.Locale;
  * Data shown in the collection widget, i.e. the stocks from the StockAdapter
  */
 public class DetailWidgetRemoteViewsService extends RemoteViewsService {
-    public final String TAG = DetailWidgetRemoteViewsService.class.getSimpleName();
-
     private static final String[] QUOTE_COLUMNS = {
             Contract.Quote.TABLE_NAME + "." + Contract.Quote._ID,
             Contract.Quote.COLUMN_SYMBOL,
@@ -28,6 +26,7 @@ public class DetailWidgetRemoteViewsService extends RemoteViewsService {
             Contract.Quote.COLUMN_PERCENTAGE_CHANGE,
             Contract.Quote.COLUMN_HISTORY
     };
+    public final String TAG = DetailWidgetRemoteViewsService.class.getSimpleName();
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
@@ -51,7 +50,7 @@ public class DetailWidgetRemoteViewsService extends RemoteViewsService {
 
             @Override
             public void onDataSetChanged() {
-                if(data != null) {
+                if (data != null) {
                     data.close();
                 }
 
@@ -64,14 +63,14 @@ public class DetailWidgetRemoteViewsService extends RemoteViewsService {
                         null,
                         null,
                         Contract.Quote._ID + " ASC"
-                        );
+                );
 
                 Binder.restoreCallingIdentity(identityToken);
             }
 
             @Override
             public void onDestroy() {
-                if(data != null) {
+                if (data != null) {
                     data.close();
                     data = null;
                 }
@@ -93,11 +92,6 @@ public class DetailWidgetRemoteViewsService extends RemoteViewsService {
 
                 String symbol = data.getString(Contract.Quote.POSITION_SYMBOL);
                 String price = dollarFormat.format(data.getFloat(Contract.Quote.POSITION_PRICE));
-                float rawAbsoluteChange = data.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
-                float percentageChange = data.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
-
-                String change = dollarFormatWithPlus.format(rawAbsoluteChange);
-                String percentage = percentageFormat.format(percentageChange / 100);
 
                 views.setTextViewText(R.id.widget_symbol, symbol);
                 views.setTextViewText(R.id.widget_price, "" + price);

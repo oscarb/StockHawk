@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -32,18 +33,6 @@ import butterknife.ButterKnife;
 public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, ChartUtils.UpdateTimePeriodOnChartGestureListener.TimePeriodUpdater {
 
     private static final int ID_DETAIL_LOADER = 4711;
-
-    private Uri stockUri;
-
-    @BindView(R.id.chart)
-    LineChart chart;
-
-    @BindView(R.id.time_period_start)
-    TextView timePeriodStart;
-
-    @BindView(R.id.time_period_end)
-    TextView timePeriodEnd;
-
     // Projection - desired columns to retrieve
     private static final String[] QUOTE_COLUMNS = {
             Contract.Quote.TABLE_NAME + "." + Contract.Quote._ID,
@@ -53,12 +42,27 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             Contract.Quote.COLUMN_PERCENTAGE_CHANGE,
             Contract.Quote.COLUMN_HISTORY
     };
+    @BindView(R.id.chart)
+    LineChart chart;
+
+    @BindView(R.id.time_period_start)
+    TextView timePeriodStart;
+
+    @BindView(R.id.time_period_end)
+    TextView timePeriodEnd;
+
+    private Uri stockUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         stockUri = getIntent().getData();
 
@@ -102,14 +106,14 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
         String history = data.getString(Contract.Quote.POSITION_HISTORY);
         List<Entry> entries = new ArrayList<>();
-        if(history.isEmpty()) {
+        if (history.isEmpty()) {
             return;
         }
 
         CSVReader csvReader = new CSVReader(new StringReader(history));
         String[] nextLine;
         try {
-            while((nextLine = csvReader.readNext()) != null) {
+            while ((nextLine = csvReader.readNext()) != null) {
                 int stockTimestamp = Integer.valueOf(nextLine[0].substring(0, nextLine[0].length() - 3));
                 float stockValue = Float.valueOf(nextLine[1]);
                 entries.add(new Entry(stockTimestamp, stockValue));

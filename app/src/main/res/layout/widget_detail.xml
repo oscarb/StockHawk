@@ -1,40 +1,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/widget_margin"
+    android:background="@color/widgetBackground"
     android:orientation="vertical"
-    android:background="@color/widgetBackground">
+    android:padding="@dimen/widget_margin">
 
     <TextView
         android:id="@+id/widget_header"
-        android:text="@string/app_name"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/widget_title_bar_height"
         android:background="@color/colorPrimary"
-        android:textColor="@android:color/primary_text_dark"
-        android:textAppearance="@android:style/TextAppearance.Material.Title"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"/>
+        android:paddingEnd="@dimen/widget_title_text_padding"
+        android:paddingStart="@dimen/widget_title_text_padding"
+        android:text="@string/app_name"
+        android:textAppearance="@android:style/TextAppearance.Material.Title"
+        android:textColor="@android:color/primary_text_dark" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ListView
             android:id="@+id/widget_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"
-            android:dividerHeight="0dp"
-            />
+            android:dividerHeight="0dp" />
+
         <TextView
             android:id="@+id/widget_empty_state"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:fontFamily="sans-serif-condensed"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:gravity="center"
             android:text="@string/error_no_stocks"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     </FrameLayout>
 
