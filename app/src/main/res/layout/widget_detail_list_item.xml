@@ -6,8 +6,8 @@
     android:layout_height="48dp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingLeft="@dimen/list_item_padding"
-    android:paddingRight="@dimen/list_item_padding">
+    android:paddingEnd="@dimen/list_item_padding"
+    android:paddingStart="@dimen/list_item_padding">
 
     <TextView
         android:id="@+id/widget_symbol"
