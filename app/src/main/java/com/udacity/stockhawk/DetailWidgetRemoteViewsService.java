@@ -42,10 +42,6 @@ public class DetailWidgetRemoteViewsService extends RemoteViewsService {
                 dollarFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
                 dollarFormatWithPlus = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
                 dollarFormatWithPlus.setPositivePrefix("+$");
-                percentageFormat = (DecimalFormat) NumberFormat.getPercentInstance(Locale.getDefault());
-                percentageFormat.setMaximumFractionDigits(2);
-                percentageFormat.setMinimumFractionDigits(2);
-                percentageFormat.setPositivePrefix("+");
             }
 
             @Override
