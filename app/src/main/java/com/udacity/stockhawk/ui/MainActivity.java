@@ -9,6 +9,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -21,7 +23,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.error)
     TextView error;
+    @SuppressWarnings("WeakerAccess")
+    @BindView(R.id.coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
 
     private StockAdapter adapter;
     private BroadcastReceiver broadcastReceiver;
@@ -120,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             error.setVisibility(View.VISIBLE);
         } else if (!networkUp()) {
             swipeRefreshLayout.setRefreshing(false);
-            Toast.makeText(this, R.string.toast_no_connectivity, Toast.LENGTH_LONG).show();
+            Snackbar.make(coordinatorLayout, R.string.no_connectivity, Snackbar.LENGTH_LONG).show();
         } else if (PrefUtils.getStocks(this).size() == 0) {
             swipeRefreshLayout.setRefreshing(false);
             error.setText(getString(R.string.error_no_stocks));
@@ -140,8 +144,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             if (networkUp()) {
                 swipeRefreshLayout.setRefreshing(true);
             } else {
-                String message = getString(R.string.toast_stock_added_no_connectivity, symbol);
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                String message = getString(R.string.stock_added_no_connectivity, symbol);
+                Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
             }
 
             PrefUtils.addStock(this, symbol);
@@ -176,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onReceive(Context context, Intent intent) {
                 String symbol = intent.getStringExtra(QuoteSyncJob.EXTRA_SYMBOL);
-                Toast.makeText(context, "Could not find stock " + symbol, Toast.LENGTH_SHORT).show();
+                Snackbar.make(coordinatorLayout, getString(R.string.no_stock_found, symbol), Snackbar.LENGTH_SHORT).show();
             }
         };
         registerReceiver(broadcastReceiver, receiverFilter);

@@ -124,7 +124,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
         Collections.sort(entries, new EntryXComparator());
 
-        LineDataSet dataSet = new LineDataSet(entries, "Label");
+        LineDataSet dataSet = new LineDataSet(entries, data.getString(Contract.Quote.POSITION_SYMBOL));
         ChartUtils.applyStyling(dataSet, loader.getContext());
 
         LineData lineData = new LineData(dataSet);

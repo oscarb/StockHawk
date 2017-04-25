@@ -38,6 +38,7 @@
             android:background="@drawable/percent_change_pill_green"
             android:paddingEnd="@dimen/list_change_padding"
             android:paddingStart="@dimen/list_change_padding"
+            android:textDirection="ltr"
             tools:text="100%" />
     </LinearLayout>
 </LinearLayout>

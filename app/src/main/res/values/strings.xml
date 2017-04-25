@@ -22,6 +22,7 @@
     <string name="unit_absolute">dollars</string>
 
     <!-- Text appearing in dialog for adding buttons -->
+    <string name="add_stock">Add stock</string>
     <string name="dialog_title">Add Stock</string>
     <string name="dialog_hint">Symbol (e.g. GOOG)</string>
     <string name="dialog_cancel">Cancel</string>
@@ -32,11 +33,12 @@
     <string name="error_no_stocks">No stocks added! Hit the + button to add one.</string>
 
     <!-- Error messages shown when there is no network or no stocks -->
-    <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
-    <string name="toast_no_connectivity">Will refresh when network available.</string>
-    <string name="add_stock">Add stock</string>
+    <string name="stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
+    <string name="no_connectivity">Will refresh when network available.</string>
+    <string name="no_stock_found">Could not find stock %s</string>
 
     <!-- Description shown in chart (if enabled in chart_settings.xml) -->
     <string name="chart_description_text">Data from Yahoo Finances</string>
+
 
 </resources>

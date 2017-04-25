@@ -15,6 +15,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- The use of layout_constraintLeft_toLeftOf instead of layout_constraintStart_toStartOf
+         is intentional for the two TextViews below.
+         MPAndroidChart doesn't mirror the LineChart in RTL configuration so the use of start/end
+         instead of left/right would make my custom time period labels below the X axis end up on
+         the wrong side in relation to how the chart displays.
+    -->
+
     <TextView
         android:id="@+id/time_period_start"
         style="@style/TimePeriodTextStyle"
